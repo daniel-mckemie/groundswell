@@ -5,6 +5,7 @@
 
 .player1 {
 	animation-name: snare;
+	animation-fill-mode: forwards;
 	height: 100em;
 	width: 25em;
 	
@@ -12,6 +13,7 @@
 
 .player2 {
 	animation-name: snare;
+	animation-fill-mode: forwards;
 	height: 100em;
 	width: 25em;
 	
@@ -19,6 +21,7 @@
 
 .player3 {
 	animation-name: snare;
+	animation-fill-mode: forwards;
 	height: 100em;
 	width: 25em;
 	
@@ -26,6 +29,7 @@
 
 .player4 {
 	animation-name: snare;
+	animation-fill-mode: forwards;
 	height: 100em;
 	width: 25em;
 	

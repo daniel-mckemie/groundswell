@@ -23,7 +23,7 @@ function snaresOn(panValue, cycleTime) {
   source.connect(panNode);
   panNode.connect(gainNode);
   gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.1, (audioCtx.currentTime) + cycleTime / 2);
+  gainNode.gain.linearRampToValueAtTime(0.09, (audioCtx.currentTime) + cycleTime / 2);
   gainNode.gain.linearRampToValueAtTime(0, (audioCtx.currentTime) + cycleTime)
   gainNode.connect(audioCtx.destination);
   source.start(0);
@@ -41,12 +41,12 @@ function snaresOff(panValue, cycleTime, carFreq, modFreq) {
   let carrierGain = audioCtx.createGain();
   let modulatorGain = audioCtx.createGain();
   let master = audioCtx.createGain();
-  
+
   carrier.frequency.value = carFreq
   modulator.frequency.value = modFreq
 
-  carrierGain.gain.value = 0.7;
-  modulatorGain.gain.value = 0.7;
+  carrierGain.gain.value = 0.5;
+  modulatorGain.gain.value = 0.5;
 
   carrier.connect(carrierGain);
   modulator.connect(modulatorGain);
@@ -54,8 +54,8 @@ function snaresOff(panValue, cycleTime, carFreq, modFreq) {
   carrierGain.connect(panNode);
   panNode.connect(master)
   master.gain.setValueAtTime(0, audioCtx.currentTime);
-  master.gain.linearRampToValueAtTime(0.7, (audioCtx.currentTime) + (cycleTime / 2) );
-  master.gain.linearRampToValueAtTime(0, (audioCtx.currentTime) + (cycleTime) );
+  master.gain.linearRampToValueAtTime(0.7, (audioCtx.currentTime) + (cycleTime / 2));
+  master.gain.linearRampToValueAtTime(0, (audioCtx.currentTime) + (cycleTime));
   master.connect(audioCtx.destination)
 
   // start oscillators
@@ -73,56 +73,56 @@ const backgrounds = ['black', 'red']
 
 function player1Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(5)  
-  const player1Animation = document.querySelector('.player1');  
+  let swellDuration = makeDuration(20)
+  const player1Animation = document.querySelector('.player1');
   player1Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player1Animation.style.animationDuration = `${swellDuration}s`;
+
+  // Replace part upon retrigger
   newPlayer1Animation = player1Animation.cloneNode(true);
   player1Animation.parentNode.replaceChild(newPlayer1Animation, player1Animation);
+
+  // Play apprpriate sound component
   if (player1Animation.style.backgroundColor == 'black') {
     snaresOn(-1, swellDuration)
   } else {
-    snaresOff(-1, swellDuration, 155.56, 20)
+    snaresOff(-1, swellDuration, 155.56, 14)
   }
-  
-
 }
 
 function player2Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(5)
+  let swellDuration = makeDuration(20)
   const player2Animation = document.querySelector('.player2');
   player2Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player2Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer2Animation = player2Animation.cloneNode(true);
   player2Animation.parentNode.replaceChild(newPlayer2Animation, player2Animation);
   if (player2Animation.style.backgroundColor == 'black') {
-    snaresOn(-0.5, swellDuration)
+    snaresOn(-0.25, swellDuration)
   } else {
-    snaresOff(-0.5, swellDuration, 185, 20)
+    snaresOff(-0.25, swellDuration, 185, 16)
   }
-
 }
 
 function player3Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(5)
+  let swellDuration = makeDuration(20)
   const player3Animation = document.querySelector('.player3');
   player3Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player3Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer3Animation = player3Animation.cloneNode(true);
   player3Animation.parentNode.replaceChild(newPlayer3Animation, player3Animation);
   if (player3Animation.style.backgroundColor == 'black') {
-    snaresOn(0.5, swellDuration)
+    snaresOn(0.25, swellDuration)
   } else {
-    snaresOff(0.5, swellDuration, 196, 20)
+    snaresOff(0.25, swellDuration, 196, 18)
   }
-
 }
 
 function player4Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(5)
+  let swellDuration = makeDuration(20)
   const player4Animation = document.querySelector('.player4');
   player4Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player4Animation.style.animationDuration = `${swellDuration}s`;
@@ -133,11 +133,9 @@ function player4Part() {
   } else {
     snaresOff(1, swellDuration, 233.08, 20)
   }
-
 }
 
-
-setInterval(player1Part, 5000);
-setInterval(player2Part, 5000);
-setInterval(player3Part, 5000);
-setInterval(player4Part, 5000);
+setInterval(player1Part, 20000);
+setInterval(player2Part, 20000);
+setInterval(player3Part, 20000);
+setInterval(player4Part, 20000);
