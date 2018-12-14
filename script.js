@@ -2,9 +2,12 @@ function makeDuration(max) {
   return Math.floor(Math.random() * Math.floor(max) + 1);
 }
 
-function player1Audio(swellTime) {
-	let swellDuration = makeDuration(swellTime)
-	document.querySelector('.player1').style.animationDuration = `${swellDuration}s`;
+function player1Part() {
+	let swellDuration = makeDuration(5)
+	const player1Animation = document.querySelector('.player1');
+	player1Animation.style.animationDuration = `${swellDuration}s`;
+	newPlayer1Animation = player1Animation.cloneNode(true);
+	player1Animation.parentNode.replaceChild(newPlayer1Animation, player1Animation);
 
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
@@ -33,9 +36,12 @@ function player1Audio(swellTime) {
 }
 
 
-function player2Audio(swellTime) {
-	let swellDuration = makeDuration(swellTime)
-	document.querySelector('.player2').style.animationDuration = `${swellDuration}s`;
+function player2Part() {
+	let swellDuration = makeDuration(5)
+	const player2Animation = document.querySelector('.player2');
+	player2Animation.style.animationDuration = `${swellDuration}s`;
+	newPlayer2Animation = player2Animation.cloneNode(true);
+	player2Animation.parentNode.replaceChild(newPlayer2Animation, player2Animation);
 
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
@@ -63,9 +69,12 @@ function player2Audio(swellTime) {
   source.start();
 }
 
-function player3Audio(swellTime) {
-	let swellDuration = makeDuration(swellTime)
-	document.querySelector('.player3').style.animationDuration = `${swellDuration}s`;
+function player3Part() {
+	let swellDuration = makeDuration(5)
+	const player3Animation = document.querySelector('.player3');
+	player3Animation.style.animationDuration = `${swellDuration}s`;
+	newPlayer3Animation = player3Animation.cloneNode(true);
+	player3Animation.parentNode.replaceChild(newPlayer3Animation, player3Animation);
 
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
@@ -93,9 +102,12 @@ function player3Audio(swellTime) {
   source.start();
 }
 
-function player4Audio(swellTime) {
-	let swellDuration = makeDuration(swellTime)
-	document.querySelector('.player4').style.animationDuration = `${swellDuration}s`;
+function player4Part() {
+	let swellDuration = makeDuration(5)
+	const player4Animation = document.querySelector('.player4');
+	player4Animation.style.animationDuration = `${swellDuration}s`;
+	newPlayer4Animation = player4Animation.cloneNode(true);
+	player4Animation.parentNode.replaceChild(newPlayer4Animation, player4Animation);
 
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
@@ -123,8 +135,10 @@ function player4Audio(swellTime) {
   source.start();
 }
 
-player1Audio(3);
-player2Audio(3);
-player3Audio(3);
-player4Audio(3);
+
+setInterval(player1Part, 5000);
+setInterval(player2Part, 5000);
+setInterval(player3Part, 5000);
+setInterval(player4Part, 5000);
+
 
