@@ -5,7 +5,6 @@
 
 .player1 {
 	animation-name: snare;
-	animation-duration: 1s;
 	animation-iteration-count: infinite;
 	height: 100em;
 	width: 25em;
@@ -14,7 +13,6 @@
 
 .player2 {
 	animation-name: snare;
-	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	height: 100em;
 	width: 25em;
@@ -23,7 +21,6 @@
 
 .player3 {
 	animation-name: snare;
-	animation-duration: 3s;
 	animation-iteration-count: infinite;
 	height: 100em;
 	width: 25em;
@@ -32,7 +29,6 @@
 
 .player4 {
 	animation-name: snare;
-	animation-duration: 4s;
 	animation-iteration-count: infinite;
 	height: 100em;
 	width: 25em;
