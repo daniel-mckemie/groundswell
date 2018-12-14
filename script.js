@@ -2,7 +2,7 @@ function makeDuration(max) {
   return Math.floor(Math.random() * Math.floor(max) + 1);
 }
 
-function buzzSound(panValue, cycleTime) {
+function snaresOn(panValue, cycleTime) {
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
   let gainNode = audioCtx.createGain();
@@ -23,13 +23,15 @@ function buzzSound(panValue, cycleTime) {
   source.connect(panNode);
   panNode.connect(gainNode);
   gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + cycleTime);
+  gainNode.gain.linearRampToValueAtTime(0.1, (audioCtx.currentTime) + cycleTime / 2);
+  gainNode.gain.linearRampToValueAtTime(0, (audioCtx.currentTime) + cycleTime)
   gainNode.connect(audioCtx.destination);
   source.start(0);
   source.stop(cycleTime)
+  setTimeout(AudioContext.close, cycleTime)
 }
 
-function pulseSound(panValue, cycleTime) {
+function snaresOff(panValue, cycleTime, carFreq, modFreq) {
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = new AudioContext();
   let panNode = audioCtx.createStereoPanner();
@@ -40,11 +42,11 @@ function pulseSound(panValue, cycleTime) {
   let modulatorGain = audioCtx.createGain();
   let master = audioCtx.createGain();
   
-  carrier.frequency.value = 200
-  modulator.frequency.value = 8
+  carrier.frequency.value = carFreq
+  modulator.frequency.value = modFreq
 
   carrierGain.gain.value = 0.7;
-  modulatorGain.gain.value = 0.7
+  modulatorGain.gain.value = 0.7;
 
   carrier.connect(carrierGain);
   modulator.connect(modulatorGain);
@@ -52,7 +54,8 @@ function pulseSound(panValue, cycleTime) {
   carrierGain.connect(panNode);
   panNode.connect(master)
   master.gain.setValueAtTime(0, audioCtx.currentTime);
-  master.gain.linearRampToValueAtTime(1, audioCtx.currentTime + cycleTime);
+  master.gain.linearRampToValueAtTime(0.7, (audioCtx.currentTime) + (cycleTime / 2) );
+  master.gain.linearRampToValueAtTime(0, (audioCtx.currentTime) + (cycleTime) );
   master.connect(audioCtx.destination)
 
   // start oscillators
@@ -61,60 +64,80 @@ function pulseSound(panValue, cycleTime) {
 
   carrier.stop(cycleTime)
   modulator.stop(cycleTime)
+  setTimeout(AudioContext.close, cycleTime)
 }
 
-const backgrounds = ['black', 'blue', 'red']
+
+// Color/sonic possibilities
+const backgrounds = ['black', 'red']
 
 function player1Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(10)
+  let swellDuration = makeDuration(5)  
   const player1Animation = document.querySelector('.player1');  
   player1Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player1Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer1Animation = player1Animation.cloneNode(true);
   player1Animation.parentNode.replaceChild(newPlayer1Animation, player1Animation);
-  buzzSound(-1, swellDuration)
+  if (player1Animation.style.backgroundColor == 'black') {
+    snaresOn(-1, swellDuration)
+  } else {
+    snaresOff(-1, swellDuration, 155.56, 20)
+  }
+  
 
 }
 
 function player2Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(10)
+  let swellDuration = makeDuration(5)
   const player2Animation = document.querySelector('.player2');
   player2Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player2Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer2Animation = player2Animation.cloneNode(true);
   player2Animation.parentNode.replaceChild(newPlayer2Animation, player2Animation);
-  buzzSound(-0.5, swellDuration)
+  if (player2Animation.style.backgroundColor == 'black') {
+    snaresOn(-0.5, swellDuration)
+  } else {
+    snaresOff(-0.5, swellDuration, 185, 20)
+  }
 
 }
 
 function player3Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(10)
+  let swellDuration = makeDuration(5)
   const player3Animation = document.querySelector('.player3');
   player3Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player3Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer3Animation = player3Animation.cloneNode(true);
   player3Animation.parentNode.replaceChild(newPlayer3Animation, player3Animation);
-  buzzSound(0.5, swellDuration)
+  if (player3Animation.style.backgroundColor == 'black') {
+    snaresOn(0.5, swellDuration)
+  } else {
+    snaresOff(0.5, swellDuration, 196, 20)
+  }
 
 }
 
 function player4Part() {
   // Synchronicity of animation to noise swells
-  let swellDuration = makeDuration(10)
+  let swellDuration = makeDuration(5)
   const player4Animation = document.querySelector('.player4');
   player4Animation.style.backgroundColor = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   player4Animation.style.animationDuration = `${swellDuration}s`;
   newPlayer4Animation = player4Animation.cloneNode(true);
   player4Animation.parentNode.replaceChild(newPlayer4Animation, player4Animation);
-  buzzSound(1, swellDuration)
+  if (player4Animation.style.backgroundColor == 'black') {
+    snaresOn(1, swellDuration)
+  } else {
+    snaresOff(1, swellDuration, 233.08, 20)
+  }
 
 }
 
 
-setInterval(player1Part, 2000);
-setInterval(player2Part, 10000);
-setInterval(player3Part, 10000);
-setInterval(player4Part, 10000);
+setInterval(player1Part, 5000);
+setInterval(player2Part, 5000);
+setInterval(player3Part, 5000);
+setInterval(player4Part, 5000);
