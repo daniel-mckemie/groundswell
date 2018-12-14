@@ -5,6 +5,7 @@
 
 .player1 {
 	animation-name: snare;
+	background-color: black;
 	height: 100em;
 	width: 25em;
 	
@@ -12,6 +13,7 @@
 
 .player2 {
 	animation-name: snare;
+	background-color: brown;
 	height: 100em;
 	width: 25em;
 	
@@ -19,6 +21,7 @@
 
 .player3 {
 	animation-name: snare;
+	background-color: red;
 	height: 100em;
 	width: 25em;
 	
@@ -26,12 +29,12 @@
 
 .player4 {
 	animation-name: snare;
+	background-color: blue;
 	height: 100em;
 	width: 25em;
 	
 }
 
 @keyframes snare {
-	from {background-color: black;}
 	to {background-color: white;}
 }
