@@ -2,7 +2,6 @@ function startPiece() {
   const instructionsDiv = document.querySelector('.instructions');
   instructionsDiv.remove()
 
-
   function makeDuration(max) {
     return Math.floor(Math.random() * Math.floor(max) + 1);
   }
@@ -22,6 +21,7 @@ function startPiece() {
         nowBuffering[i] = Math.random() * 2 - 1;
       }
     }
+
     // Connections
     let source = audioCtx.createBufferSource();
     source.buffer = myArrayBuffer;
@@ -87,7 +87,7 @@ function startPiece() {
     newPlayer1Animation = player1Animation.cloneNode(true);
     player1Animation.parentNode.replaceChild(newPlayer1Animation, player1Animation);
 
-    // Play apprpriate sound component
+    // Play appropriate sound component
     if (player1Animation.style.backgroundColor == 'black') {
       snaresOn(-1, swellDuration)
     } else {
